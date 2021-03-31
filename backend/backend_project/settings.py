@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     # 3rd party apps
     'corsheaders',
     'rest_framework',
+    # our apps
+    'cv.apps.CvConfig'
 ]
 
 MIDDLEWARE = [
@@ -122,4 +124,8 @@ CORS_ORIGIN_WHITELIST = [
      'http://localhost:4200',
 ]
 
-FRONTEND_ROOT = os.path.abspath(os.path.join(BASE_DIR, "..", "frontend", "dist", "frontend"))
+FRONTEND_ROOT = os.path.abspath(os.path.join(BASE_DIR, '..', 'frontend', 'dist', 'frontend'))
+
+MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'uploads'))
+
+MEDIA_URL = '/uploads/'
