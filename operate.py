@@ -31,7 +31,13 @@ BACKEND_PATH = os.path.join(ROOT_PATH, "backend")
 BACKEND_SETTINGS_DIRECTORY_NAME = "backend_project" 
 BACKEND_SETTINGS_PATH = os.path.join(BACKEND_PATH, BACKEND_SETTINGS_DIRECTORY_NAME)
 # frontend ROOT string to use inside django settings
-FRONTEND_ROOT_STRING = """FRONTEND_ROOT = os.path.abspath(os.path.join(BASE_DIR, "..", "frontend", "dist", "frontend"))"""
+FRONTEND_ROOT_STRING = """FRONTEND_ROOT = os.path.abspath(os.path.join(BASE_DIR, '..', 'frontend', 'dist', 'frontend'))"""
+# media ROOT string to use inside django settings
+MEDIA_ROOT_STRING = """MEDIA_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'uploads'))"""
+# media URL string to use inside django settings
+MEDIA_URL_STRING = """MEDIA_URL = '/uploads/'"""
+# string to add to urls of django requests to uploads 
+URL_PATTERNS_FOR_MEDIA_STRING ="""re_path(r'^uploads/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),"""
 # string to add to urls of django to direct all requests to frontend
 URL_PATTERNS_FOR_FRONTEND_STRING ="""re_path(r'^(?P<path>.*)$', serve, {'document_root': settings.FRONTEND_ROOT}),"""
 # string to import backend settings
@@ -103,6 +109,21 @@ class PythonScriptWriter:
             lines = "".join(lines)
             f.write(lines)
 
+    def addLineWithStartingWord(self, file_path, string_to_add):
+            lines = []
+            starting_word = string_to_add.split()[0]
+            with open("settings.py") as f:
+                for line in f.readlines():
+                    if line.startswith(starting_word):
+                        continue
+                    lines.append(line)
+                lines.append("\n\n")
+                lines.append(string_to_add)
+            lines = "".join(lines)
+            while "\n\n\n" in lines:
+                lines = lines.replace("\n\n\n", "\n\n")
+            with open("settings.py", "w") as f:
+                f.write(lines)
 
 class Operate:
 
@@ -142,23 +163,16 @@ class Operate:
     
     def _addFrontendRootToBackendSettings(self):
         os.chdir(BACKEND_SETTINGS_PATH)
-        lines = []
-        with open("settings.py") as f:
+        self.pywriter.addLineWithStartingWord("settings.py", FRONTEND_ROOT_STRING)
 
-            for line in f.readlines():
-                if line.startswith("FRONTEND_ROOT"):
-                    continue
-                lines.append(line)
-            lines.append("\n\n")
-            lines.append(FRONTEND_ROOT_STRING)
-        lines = "".join(lines)
-        while "\n\n\n" in lines:
-            lines = lines.replace("\n\n\n", "\n\n")
-        with open("settings.py", "w") as f:
-            f.write(lines)
-
-    def _addFrontendURLtoBackendURLPatterns(self):
+    def _addMediaToBackendSettings(self):
         os.chdir(BACKEND_SETTINGS_PATH)
+        self.pywriter.addLineWithStartingWord("settings.py", MEDIA_ROOT_STRING)
+        self.pywriter.addLineWithStartingWord("settings.py", MEDIA_URL_STRING)
+
+    def _addURLPatternstoBackend(self):
+        os.chdir(BACKEND_SETTINGS_PATH)
+        # add import statement
         self.pywriter.addImport("urls.py", 
                           new_import_stmts=[
                                 "from django.urls import include",
@@ -167,7 +181,11 @@ class Operate:
                                 "from django.conf.urls.static import serve",
                                 IMPORT_BACKEND_SETTINGS_STRING,
                         ])
+        # media ROOT url pattern
+        self.pywriter.appendToPythonList("urls.py", [URL_PATTERNS_FOR_MEDIA_STRING], "urlpatterns")
+        # frontend ROOT url pattern
         self.pywriter.appendToPythonList("urls.py", [URL_PATTERNS_FOR_FRONTEND_STRING], "urlpatterns")
+
 
     def _createFrontend(self):
         os.chdir(FRONTEND_PATH)
@@ -178,12 +196,16 @@ class Operate:
     def _createBackend(self):
         os.chdir(BACKEND_PATH)
         self._addFrontendRootToBackendSettings()
-        self._addFrontendURLtoBackendURLPatterns()
+        self._addURLPatternstoBackend()
+        self._addMediaToBackendSettings()
+        os.chdir(os.path.abspath(BACKEND_PATH))
+        if not os.path.isdir("uploads"):
+            os.mkdir("uploads")
 
     def create(self):
         if self.operation_arg == "-F" or self.operation_arg == "--frontend":
             self._createFrontend()
-        elif self.operation_arg == "-B" or self.operation_arg == "--Backend":
+        elif self.operation_arg == "-B" or self.operation_arg == "--backend":
             self._createBackend()
         elif self.operation_arg == "-A" or self.operation_arg == "--all":
             self._runProcesses(self._createFrontend, self._createBackend)
