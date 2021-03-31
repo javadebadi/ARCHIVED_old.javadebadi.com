@@ -1,6 +1,11 @@
 from django.urls import path
-from .views import DegreeList
+from django.urls import include
+from rest_framework.routers import DefaultRouter
+from .views import DegreeViewSet
+
+router = DefaultRouter()
+router.register('degrees', DegreeViewSet)
 
 urlpatterns = [
-    path('degrees/', DegreeList.as_view()),    
+    path('', include(router.urls)),    
 ]
