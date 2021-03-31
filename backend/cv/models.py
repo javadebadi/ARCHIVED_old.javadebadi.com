@@ -3,6 +3,7 @@ from django.db import models
 # static table to include name of degrees
 class Degree(models.Model):
     name = models.CharField(max_length=128, unique=True)
+    owner_id = models.ForeignKey(to='auth.user', related_name='degrees', on_delete=models.PROTECT)
     
     def __str__(self):
         return self.name
