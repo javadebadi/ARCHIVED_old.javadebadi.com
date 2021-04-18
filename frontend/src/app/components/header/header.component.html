@@ -1,0 +1,23 @@
+<!-- navbar -->
+<nav [ngClass]="'main-nav navbar navbar-expand-lg navbar-light bg-white d-flex justify-content-end m-0 pr-3 pt-2'">
+<div *ngFor="let item of navBarItems" >
+    <a [ngClass]="{'pl-2':true, 'pt-2':true, 'pb-2':true, 'nav-item': true, 'nav-link': true, 'cta': item.name.toLowerCase() === 'blog'}" 
+        [routerLink]="item.route">
+        {{ item.name }}
+    </a>
+</div>
+</nav>
+<!-- profile -->
+<div class="profile">
+  <section id="wrapper">
+    <header id="header">
+    
+      <a href="/press">
+        <img id="avatar" class="2x" alt="image" [src]="imagePath">
+      </a>
+
+      <h1> {{ fullName | titlecase }} </h1>
+      <h2>{{ jobTitle }} working on <span class="highlight">{{ jobSubject }}</span></h2>
+    </header>
+  </section>
+</div>
