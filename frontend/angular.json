@@ -10,7 +10,7 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "sass"
+          "style": "scss"
         },
         "@schematics/angular:application": {
           "strict": true
@@ -36,8 +36,8 @@
             ],
             "styles": [
               "node_modules/bootstrap/scss/bootstrap.scss",
-              "src/styles.sass",
-              "node_modules/font-awesome/scss/font-awesome.scss"
+              "node_modules/font-awesome/scss/font-awesome.scss",
+              "src/styles.scss"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
@@ -104,7 +104,7 @@
               "src/assets/images/"
             ],
             "styles": [
-              "src/styles.sass"
+              "src/styles.scss"
             ],
             "scripts": []
           }

@@ -1,0 +1,74 @@
+<section id="educations" [ngClass]="['container, d-flex, pl-5', 'home']" >
+    <ol class="list-view">
+        <li *ngFor="let education of educations" [ngClass]="['education', 'list-item']">
+            <div [ngClass]="['row', 'mt-3']">
+                <!-- year and degree of eduction -->
+                <div [ngClass]="['col-2', 'text-right', 'text-nowrap', 'mb-2']">
+                    <div>
+                        {{ education.start_date.slice(0,4) }} - {{ education.end_date.slice(0,4)}}
+                    </div>
+                </div>
+                <div [ngClass]="['col-10']">
+                    <div [ngClass]="['font-weight-bold', 'mb-2']">
+                        {{ education.degree_id.name }} in {{ education.study_field }}
+                    </div>
+                </div>
+                <!-- institute or university -->
+                <div [ngClass]="['col-2', 'text-right', 'text-nowrap', 'mb-2', 'small', 'text-dark']">
+                    <div>
+                    Institute
+                    </div>
+                </div>
+                <div [ngClass]="['col-10', 'mb-2', 'small', 'text-dark']">
+                    <div>
+                        {{ education.school_id.name }}, {{ education.school_id.city_id.name }}, {{ education.school_id.city_id.country_id.name }}
+                    </div>
+                </div>
+                <!-- GPA -->
+                <div [ngClass]="['col-2', 'text-right', 'text-nowrap', 'mb-2', 'small', 'text-dark']">
+                    <div>
+                        GPA
+                    </div>
+                </div>
+                <div [ngClass]="['col-10', 'mb-2', 'small', 'text-dark']">
+                    <div>
+                        {{ education.gpa }}/5
+                    </div>
+                </div>
+                <!-- Thesis -->
+                <div *ngIf="education.thesis_title" [ngClass]="['col-2', 'text-right', 'text-nowrap', 'mb-2', 'small', 'text-dark']">
+                    <div>
+                        Thesis
+                    </div>
+                </div>
+                <div *ngIf="education.thesis_title" [ngClass]="['col-10', 'mb-2', 'small', 'text-dark']">
+                    <div>
+                        {{ education.thesis_title }}
+                    </div>
+                </div>
+                <!-- Advisers -->
+                <div *ngIf="education.advisers" [ngClass]="['col-2', 'text-right', 'text-nowrap', 'mb-2', 'small', 'text-dark']">
+                    <div>
+                        Advisers
+                    </div>
+                </div>
+                <div *ngIf="education.advisers" [ngClass]="['col-10', 'mb-2', 'small', 'text-dark']">
+                    <div>
+                        {{ education.advisers }}
+                    </div>
+                </div>
+                <!-- description -->
+                <div *ngIf="education.description" [ngClass]="['col-2', 'text-right', 'text-nowrap', 'mb-2', 'small', 'text-dark']">
+                    <div>
+                        Description
+                    </div>
+                </div>
+                <div *ngIf="education.description" [ngClass]="['col-10', 'mb-2', 'small', 'text-dark']">
+                    <div>
+                        {{ education.description }}
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ol>
+</section>

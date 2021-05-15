@@ -4,7 +4,7 @@ import { HardDataService } from '../../services/hard-data.service';
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.sass']
+  styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent implements OnInit {
   hardData: any;
