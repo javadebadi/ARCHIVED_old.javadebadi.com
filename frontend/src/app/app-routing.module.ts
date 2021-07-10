@@ -9,11 +9,11 @@ import { PhysicsComponent } from './components/physics/physics.component';
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: "courses", component: CoursesComponent },
-  { path: "cv", component: CvComponent },
+  // { path: "cv", component: CvComponent },
   { path: "home", component: DashboardComponent},
   { path: "education", component: EducationComponent},
   { path: "physics", component: PhysicsComponent},
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', component: DashboardComponent }
 ];
 
 @NgModule({
