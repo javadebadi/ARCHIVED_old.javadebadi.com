@@ -25,9 +25,9 @@ export const HARDDATA =  {
         "medium": "https://medium.com/@javad.ebadi.1990",
     },
     "navbar_items": [
-        { "name": "Home", "route": "" },
-        { "name": "Courses", "route": "/courses" },
-        { "name": "CV", "route": "/cv" },
-        { "name": "Blog", "route": "/blog" },
+        { "name": "Home", "route": "", "href": "https://javadebadi.github.io/" },
+        { "name": "Courses", "route": "/courses", "href": "https://javadebadi.github.io/courses/" },
+        { "name": "CV", "route": "/cv", "href": "https://javadebadi.github.io/cv/" },
+        { "name": "Blog", "route": "/blog", "href": "https://javadebadi.github.io/blog/" },
     ]
 }

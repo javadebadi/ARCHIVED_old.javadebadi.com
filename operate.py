@@ -264,7 +264,7 @@ class Operate:
     # build project  --------------------------------------------------------
     def _buildFrontend(self):
         os.chdir(FRONTEND_PATH)
-        os.system("ng build --prod")
+        os.system("ng build --prod --output-hashing none")
 
     def _buildBackend(self):
         os.chdir(BACKEND_PATH)

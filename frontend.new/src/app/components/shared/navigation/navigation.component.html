@@ -1,0 +1,45 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item href="#">Link 1</a>
+      <a mat-list-item href="#">Link 2</a>
+      <a mat-list-item href="#">Link 3</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+
+    <header >
+    <mat-toolbar color="primary" class="toolbar">
+    <div class="d-flex align-content-around flex-wrap">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+          <button mat-raised-button color="accent" [ngClass]="['mx-2']">Basic</button>
+          <button mat-raised-button color="accent" [ngClass]="['mx-2']">Primary</button>
+          <button mat-raised-button color="accent" [ngClass]="['mx-2']">Accent</button>
+          <button mat-raised-button color="accent" [ngClass]="['mx-2']">Warn</button>
+          <a mat-raised-button color="warn" href="https://www.google.com/" target="_blank" [ngClass]="['mx-2']">Link</a>
+      </div>
+    </mat-toolbar>
+    </header>
+    <main>
+    main
+    </main>
+    <footer>
+    Footer
+    </footer>
+
+    
+
+    CONTENT
+  </mat-sidenav-content>
+</mat-sidenav-container>
